@@ -59,4 +59,44 @@ async function sendMessage(req,res){
 
 }
 
-module.exports={createConversation,sendMessage};
+async function getAllConversation(req,res){
+    const userId=req.user.id
+    const allConversation=await conversationModel.find({
+        userId:userId
+    });
+
+    res.status(201).json({
+        allConversation
+    })
+}
+
+async function getAllMessageInConversation(req,res){
+    const conversationId=req.params.cid;
+    const userId=req.user.id
+
+    const conversation=await conversationModel.findOne({
+        _id:conversationId
+    })
+
+    if(!conversation){
+        res.status(404).json({
+            message:"Conversation not found"
+        })
+    }
+
+    if(conversation.userId!=userId){
+        res.status(404).json({
+            message:"Conversation not found"
+        })
+    }
+
+    const messages=await messageModel.find({
+        conversationId:conversationId
+    }).select("role content createdAt -_id")
+
+    res.status(200).json({
+        messages:messages
+    })
+}
+
+module.exports={createConversation,sendMessage,getAllConversation,getAllMessageInConversation};

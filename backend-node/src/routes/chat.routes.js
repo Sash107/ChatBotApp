@@ -14,4 +14,8 @@ router.post('/create-conversation',authMiddleware,chatController.createConversat
 
 router.post('/send-message',authMiddleware,chatController.sendMessage)
 
+router.get('/all-conversation',authMiddleware,chatController.getAllConversation)
+
+router.get('/all-message-in-conversation/:cid',authMiddleware,chatController.getAllMessageInConversation)
+
 module.exports=router
