@@ -25,7 +25,7 @@ async function registerUser(req,res){
         password:hashPassword
     })
     
-    const token=jwt.sign({username,email},process.env.JWT_SECRET_KEY,{expiresIn:"3hr"})
+    const token=jwt.sign({id:user._id,username},process.env.JWT_SECRET_KEY,{expiresIn:"3h"})
 
     res.cookie("token",token)
 
@@ -60,8 +60,8 @@ async function loginUser(req,res){
     }
         
     const token=jwt.sign({
-        username,email
-    },process.env.JWT_SECRET_KEY,{expiresIn:"3hr"})
+        id:user._id,username
+    },process.env.JWT_SECRET_KEY,{expiresIn:"3h"})
     
     res.cookie("token",token)
     res.status(201).json({

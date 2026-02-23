@@ -10,6 +10,8 @@ router.get("/",authMiddleware,(req,res)=>{
     })
 })
 
-router.post("/send",authMiddleware,chatController.askChatBot)
+router.post('/create-conversation',authMiddleware,chatController.createConversation)
+
+router.post('/send-message',authMiddleware,chatController.sendMessage)
 
 module.exports=router

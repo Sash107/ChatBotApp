@@ -3,7 +3,8 @@ const mongoose=require("mongoose");
 const messageSchema=new mongoose.Schema({
     conversationId:{
         type:mongoose.Types.ObjectId,
-        required:truee
+        ref:"conversations",
+        required:true
     },
     role:{
         type:String,
@@ -11,8 +12,8 @@ const messageSchema=new mongoose.Schema({
         required:true
     },
     content:String,
-    createdAt:{
-        type:Date,
-        required:true
-    }
-})
+},{timestamps:true});
+
+const messageModel=mongoose.model("messages",messageSchema);
+
+module.exports=messageModel;
