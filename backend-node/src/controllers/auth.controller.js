@@ -61,7 +61,7 @@ async function loginUser(req,res){
         
     const token=jwt.sign({
         username,email
-    },process.env.JWT_SECRET_KEY)
+    },process.env.JWT_SECRET_KEY,{expiresIn:"3hr"})
     
     res.cookie("token",token)
     res.status(201).json({
