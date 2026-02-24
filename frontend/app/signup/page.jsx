@@ -8,16 +8,17 @@ const signup = () => {
     const [username,setUsername]=useState('');
     const [password,setPassword]=useState('');
     const [seePassword,setSeePassword]=useState(false);
-    useEffect(()=>{
-        console.log(email,username,password)
-    },[email,password,username])
 
     const handleSubmit=async (e)=>{
         e.preventDefault()
-        
-        const response=await axios.post('http://localhost:3000/api/auth/signup',{email,username,password})
-        
-        console.log(response.data)
+
+        try{
+            const response=await axios.post('http://localhost:3000/api/auth/signup',{email,username,password})
+            
+            console.log(response.data)
+        }catch(err){
+            console.log(err.response.data);
+        }
     }
 
   return (

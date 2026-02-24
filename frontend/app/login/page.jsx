@@ -1,74 +1,91 @@
 'use client'
-import React from "react";
-import { useState,useEffect } from "react";
+import axios from 'axios';
+import React, { useEffect, useState } from 'react'
+import { FaEye,FaEyeSlash } from "react-icons/fa";
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
-function login(){
-    const [email,setEmail]=useState("");
-    const [password,setPassword]=useState("");
+const signin = () => {
+    const [email,setEmail]=useState('');
+    const [password,setPassword]=useState('');
+    const [seePassword,setSeePassword]=useState(false);
+  
+    const handleSubmit=async (e)=>{
+        e.preventDefault()
+        try{
+            const response=await axios.post('http://localhost:3000/api/auth/login',{email,password})
 
-    useEffect(()=>{
-        console.log("email:",email)
-        console.log("password:",password)
-    },[email,password])
-    return(
-        <div className="bg-[#f4f3ea] max-w-screen min-h-screen flex flex-col">
-            <div className="h-30 flex pr-[4%]">
+            console.log(response.data)
+        }catch(err){
+            console.log(err.response.data);
+        }
 
-                <div className="mx-0 px-8 py-8 items-center flex flex-col gap-2 justify-center w-1/6">
-                    <div className="text-2xl font-bold">
-                        Chat Bot App
-                    </div>
-                    <div className=" border-2 text-[#737373] w-full"></div>
-                    <div className="text-l text-[#737373]">
-                        chatbotapp@gmail.com
-                    </div>
+    }
+
+  return (
+    <div className='bg-[#f4f3ea] min-h-screen w-full flex flex-col'>
+        <div className='h-30 flex pr-[4%]'>
+            <div className='pt-4 pl-8'>
+                <div className='font-bold text-2xl p-2 hover:cursor-pointer'>
+                    Chat Bot App
                 </div>
-
-                <div className="min-w-1/5 ml-auto p-3 flex h-20 items-center">
-                    <div className="font-bold mx-auto  text-xl">
-                        Signup
-                    </div>
-                    <div className="py-2 px-5  mx-auto font-bold bg-[#fdc987] rounded-xl text-l">
-                        Request Demo
-                    </div>
+                <div className='border-2 text-[#737373] w-full'></div>
+                <div className='text-md text-center mt-2 text-[#737373] hover:cursor-pointer'>
+                    chatbotapp@gmail.com
                 </div>
             </div>
+            <div className='ml-auto text-center px-2 h-20 pt-6 sm:pt-4 flex flex-col gap-2 sm:flex-row sm:gap-8 items-center'>
+                <div className='text-xl font-bold hover:cursor-pointer'>
+                    Sign Up
+                </div>
+                <div className='rounded-lg text-sm p-2 bg-[#fdc987] font-bold px-5 flex items-center hover:cursor-pointer'>
+                    Request Demo
+                </div>
+            </div>
+        </div>
+        <div className='flex flex-col p-2 items-center w-full'>
+            <div className='w-full max-w-120 bg-white h-160 pt-8 rounded-xl shadow-[0_0_10px_rgba(0,0,0,0.2)]'>
+                <div className='text-3xl font-extrabold p-2  text-center'>
+                    Agent Login
+                </div>
+                <div className=' px-16 text-xl font-medium text-center text-[#737373]'>
+                    Hey, Enter your details to get Sign In to your account
+                </div>
 
-            <div className="border-2 flex-1 min-h-0 flex justify-center">
-                <div className="w-[30%] h-[calc(0.85*(100vh-7rem))] min-h-0 rounded-4xl px-12 py-12 bg-white flex flex-col items-center">
-                    <div className="text-3xl font-extrabold">
-                        Agent Login
-                    </div>
-                    <div className="text-xl font-medium px-16 text-center mt-4 text-[#545454]">
-                        Hey, Enter your details to get sign in to your account
-                    </div>
-
-                    <form action="" className="w-full mt-12">
-                        <input type="text" placeholder="Enter Username / Email" className="text-black placeholder:text-[#545454] border-2 w-full h-12 px-6 border-[#d9d9d9] rounded-xl"
-                        onChange={(e)=>{
-                            setEmail(e.target.value)
-                        }}/>
-                        <input type="text" placeholder="Enter Password" className="text-black placeholder:text-[#545454] border-2 w-full h-12 px-6 mt-4 border-[#d9d9d9] rounded-xl" onChange={(e)=>{
+                <form className='items-center w-full flex flex-col text-black pt-16 px-4 gap-4' onSubmit={handleSubmit}>
+                    <input type="text" className='h-12 border-2 w-full px-4 placeholder:text-[#545454] border-[#d9d9d9] rounded-xl' placeholder='Enter Email' onChange={(e)=>{
+                        setEmail(e.target.value)
+                    }}/>
+                    <div className='w-full h-12 border-2 flex items-center border-[#d9d9d9] rounded-xl pr-4'>
+                        <input type={seePassword?'text':'password'} className='h-full w-full px-4 placeholder:text-[#545454] rounded-xl' placeholder='Enter Password' onChange={(e)=>{
                             setPassword(e.target.value)
                         }}/>
-                        <div className="mt-8 font-medium text-[1rem] w-fit hover:cursor-pointer">
-                            Having trouble in Sign in?
-                        </div>
-                        <button type="submit" className="bg-[#fdc987] w-full h-12 px-6 mt-8 rounded-xl hover:cursor-pointer">
-                            Sign In
-                        </button>
-                        <div className="w-fit text-center font-medium mt-8 hover:cursor-pointer">
-                            <span className="font-normal">
-                            Don't have an account? 
-                            </span>
-                            &nbsp;Request Now
-                        </div>
-                    </form>
+                        <span className='hover:cursor-pointer' onClick={()=>{setSeePassword(!seePassword)}}>
+                            {seePassword?<FaEyeSlash size={24} className='h-8 text-[#545454]'/>:
+                            <FaEye size={24} className='h-8 text-[#545454]'/>}
+                        </span>
+                    </div>
+                    
+                    <div className='mr-auto mt-4 font-medium hover:cursor-pointer'>
+                        Having touble in Sign In?
+                    </div>
+                    <button type='submit' className='hover:cursor-pointer mt-8 h-12 w-full bg-[#fdc987] rounded-xl font-bold shadow-[0_0_10px_rgba(0,0,0,0.2)]'>
+                        Sign In
+                    </button>
+                </form>
+                <div className='text-center mt-6'>
+                    --OR--
                 </div>
+                <div className='text-center mt-4'>
+                    <Link href="/signup" className='text-lg font-medium'>
+                        Create an account
+                    </Link>
+                </div>
+                
             </div>
-
         </div>
-    )
+    </div>
+  )
 }
 
-export default login;
+export default signin
