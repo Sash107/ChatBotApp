@@ -17,7 +17,7 @@ const Chatbox = ({className,onSend}) => {
       <div className='h-full flex items-center px-[10px] w-full'>
         <LuPlus className='text-[#555555] h-[36px] w-[36px] p-[4px]  rounded-[50%] hover:bg-[#f9f8f8]'/>
         <TextareaAutosize minRows={1} maxRows={10} className='focus:outline-none resize-none p-2 ml-[8px] w-full' placeholder='Ask Anything' onInput={handleInput} />
-        <FaArrowUp className='h-[36px] w-[36px] p-[8px] border-2 rounded-[50%] text-white bg-black' onClick={handleSubmit}/>
+        <FaArrowUp className='h-[36px] w-[38px] p-[8px] rounded-[50%] text-white bg-black' onClick={handleSubmit}/>
       </div>
     </div>
   )

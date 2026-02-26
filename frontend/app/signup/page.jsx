@@ -13,7 +13,7 @@ const signup = () => {
         e.preventDefault()
 
         try{
-            const response=await axios.post('http://localhost:3000/api/auth/signup',{email,username,password})
+            const response=await axios.post('http://localhost:3000/api/auth/signup',{email,username,password},{withCredentials:true})
             
             console.log(response.data)
         }catch(err){
