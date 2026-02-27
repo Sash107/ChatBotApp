@@ -67,8 +67,8 @@ const ChatPage = () => {
     
   return (
     <div className='flex h-screen w-full'>
-        <Sidebar className='hidden h-full md:block w-[256px] shrink-0 border-r-2 scroll-auto'/>
-        <div className='h-full w-full flex flex-col items-center'>
+        <Sidebar className='hidden h-full md:flex w-[256px] shrink-0 border-r-2 scroll-auto'/>
+        <div className='h-full flex-1 flex flex-col items-center'>
             <div className='w-full px-8 py-4 text-xl'>
                 ChatBot App
             </div>
