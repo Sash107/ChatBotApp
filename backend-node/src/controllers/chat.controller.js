@@ -63,7 +63,7 @@ async function getAllConversation(req,res){
     const userId=req.user.id
     const allConversation=await conversationModel.find({
         userId:userId
-    });
+    }).sort({createdAt:-1});
 
     res.status(201).json({
         allConversation
@@ -94,7 +94,7 @@ async function getAllMessageInConversation(req,res){
         conversationId:conversationId
     }).select("role content createdAt -_id")
 
-    res.status(200).json({
+    return res.status(200).json({
         messages:messages
     })
 }

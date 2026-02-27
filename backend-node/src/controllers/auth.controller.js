@@ -64,7 +64,7 @@ async function loginUser(req,res){
     },process.env.JWT_SECRET_KEY,{expiresIn:"3h"})
     
     res.cookie("token",token)
-    res.status(201).json({
+    return res.status(201).json({
         message:"User login successfully"
     })
 }
