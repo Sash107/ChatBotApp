@@ -10,6 +10,7 @@ const chats = () => {
 
   const handleSend=(data)=>{
     setMessage(data)
+    console.log(data)
   }
   return (
     <div className='flex h-screen w-full border-2'>

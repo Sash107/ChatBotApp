@@ -10,6 +10,7 @@ const Chatbox = ({className,onSend}) => {
   }
 
   const handleSubmit=(e)=>{
+    if(!message.trim())return
     onSend(message)
     setMessage("")
   }
