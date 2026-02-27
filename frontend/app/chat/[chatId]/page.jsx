@@ -1,7 +1,7 @@
 'use client';
 import React, { useEffect, useRef, useState } from 'react'
 import Sidebar from '../../../components/Sidebar'
-import { useParams } from 'next/navigation';
+import { useParams,useRouter } from 'next/navigation';
 import axios from 'axios';
 import ReactMarkdown from "react-markdown";
 import Chatbox from '../../../components/Chatbox';
@@ -11,6 +11,7 @@ const ChatPage = () => {
     const [Allmessages,setAllMessages]=useState([]);
     const [isLoading,setIsLoading]=useState(false);
     const messageEndRef=useRef(null);
+    const router=useRouter();
 
     const handleSend=async (msg)=>{
         const trimmed=msg.trim()

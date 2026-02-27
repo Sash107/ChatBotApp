@@ -3,19 +3,21 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { FaEye,FaEyeSlash } from "react-icons/fa";
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 const signin = () => {
     const [email,setEmail]=useState('');
     const [password,setPassword]=useState('');
     const [seePassword,setSeePassword]=useState(false);
-  
+    const router=useRouter();
+
     const handleSubmit=async (e)=>{
         e.preventDefault()
         try{
             const response=await axios.post('http://localhost:3000/api/auth/login',{email,password},{withCredentials:true})
 
             console.log(response.data)
+            router.push('/chat')
         }catch(err){
             console.log(err.response.data);
         }
@@ -35,7 +37,7 @@ const signin = () => {
                 </div>
             </div>
             <div className='ml-auto text-center px-2 h-20 pt-6 sm:pt-4 flex flex-col gap-2 sm:flex-row sm:gap-8 items-center'>
-                <div className='text-xl font-bold hover:cursor-pointer'>
+                <div className='text-xl font-bold hover:cursor-pointer' onClick={e=>router.push('/signup')}>
                     Sign Up
                 </div>
                 <div className='rounded-lg text-sm p-2 bg-[#fdc987] font-bold px-5 flex items-center hover:cursor-pointer'>
