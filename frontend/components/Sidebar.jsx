@@ -10,11 +10,6 @@ const Sidebar = ({className}) => {
   const router=useRouter();
 
   useEffect(()=>{
-    console.log(allConversation)
-    console.log(chatId)
-  },[allConversation])
-
-  useEffect(()=>{
 
     const getConversation=async ()=>{
       const uri="http://localhost:3000/api/chat/all-conversation"

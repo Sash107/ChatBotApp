@@ -5,6 +5,7 @@ import { useParams,useRouter } from 'next/navigation';
 import axios from 'axios';
 import ReactMarkdown from "react-markdown";
 import Chatbox from '../../../components/Chatbox';
+import LogoutButton from '../../../components/LogoutButton';
 
 const ChatPage = () => {
     const {chatId}=useParams();
@@ -69,9 +70,15 @@ const ChatPage = () => {
     <div className='flex h-screen w-full'>
         <Sidebar className='hidden h-full md:flex w-[256px] shrink-0 border-r-2 scroll-auto'/>
         <div className='h-full flex-1 flex flex-col items-center'>
-            <div className='w-full px-8 py-4 text-xl'>
+            <div className='flex w-full'>
+                <div className='px-8 py-4 text-xl'>
                 ChatBot App
+                </div>
+                <div className='ml-auto flex h-full items-center py-[8px] px-[32px]'>
+                    <LogoutButton className=""/>
+                </div>
             </div>
+
             <div className='flex-1 flex flex-col w-full md:w-[512px] lg:w-[640px] xl:w-[768px] overflow-y-auto pt-4'>
                 <div className='flex flex-col mt-auto w-full'>
                 {

@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import Sidebar from '../../components/Sidebar';
 import Chatbox from '../../components/Chatbox';
+import LogoutButton from '../../components/LogoutButton';
 
 const chats = () => {
   const [seeSidebar,setSeeSidebar]=useState(true);
@@ -10,15 +11,20 @@ const chats = () => {
 
   const handleSend=(data)=>{
     setMessage(data)
-    console.log(data)
   }
   return (
     <div className='flex h-screen w-full border-2'>
       <Sidebar className='hidden h-full md:flex w-[260px] shrink-0 border-r-2 scroll-auto'/>
       <div className='h-full flex-1 flex flex-col'>
-        <div className='px-8 py-4 text-xl'>
+        <div className='flex'>
+          <div className='px-8 py-4 text-xl'>
           ChatBot App
+          </div>
+          <div className='ml-auto flex h-full items-center py-[8px] px-[32px]'>
+            <LogoutButton className=""/>
+          </div>
         </div>
+        
 
         <div className='flex h-full flex-1 items-center justify-center'>
           <div className='flex-1 flex flex-col translate-y-[-116px]'>
