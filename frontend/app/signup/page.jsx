@@ -16,7 +16,6 @@ const signup = () => {
 
         try{
             const response=await axios.post('http://localhost:3000/api/auth/signup',{email,username,password},{withCredentials:true})
-            console.log(response.data)
             router.push('/chat');
         }catch(err){
             console.log(err.response.data);

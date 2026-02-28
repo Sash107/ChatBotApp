@@ -3,14 +3,38 @@ import React, { useEffect, useState } from 'react'
 import Sidebar from '../../components/Sidebar';
 import Chatbox from '../../components/Chatbox';
 import LogoutButton from '../../components/LogoutButton';
+import axios from 'axios';
+import { useRouter } from 'next/navigation';
+import Loader from '../../components/Loader';
 
 const chats = () => {
   const [seeSidebar,setSeeSidebar]=useState(true);
   const [allConversation,setAllConversation]=useState([]);
   const [message,setMessage]=useState("");
+  const [isLoading,setIsLoading]=useState(false);
+  const router=useRouter();
 
-  const handleSend=(data)=>{
+  const handleSend=async(data)=>{
     setMessage(data)
+    const title="New Conversation"
+    const response=await axios.post("http://localhost:3000/api/chat/create-conversation",{title},{withCredentials:true})
+    const conversationId=response.data._id
+    const trimmed=data.trim()
+
+    if(!trimmed)return
+    if(isLoading)return
+
+    const url="http://localhost:3000/api/chat/send-message"
+
+    try{
+        setIsLoading(true);
+        const response=await axios.post(url,{"message":data,"conversationId":conversationId},{withCredentials:true});
+        setIsLoading(false);
+        router.push("chat/"+conversationId)
+    }catch(err){
+        console.log(err.data.messages)
+        setIsLoading(false);
+    }
   }
   return (
     <div className='flex h-screen w-full border-2'>
@@ -26,7 +50,10 @@ const chats = () => {
         </div>
         
 
-        <div className='flex h-full flex-1 items-center justify-center'>
+        <div className='flex h-full flex-1 items-center justify-center relative'>
+          {
+            isLoading&&<Loader/>
+          }
           <div className='flex-1 flex flex-col translate-y-[-116px]'>
             <p className='text-3xl flex justify-center py-[32px]'>
             What are you working on?

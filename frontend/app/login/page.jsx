@@ -15,8 +15,6 @@ const signin = () => {
         e.preventDefault()
         try{
             const response=await axios.post('http://localhost:3000/api/auth/login',{email,password},{withCredentials:true})
-
-            console.log(response.data)
             router.push('/chat')
         }catch(err){
             console.log(err.response.data);

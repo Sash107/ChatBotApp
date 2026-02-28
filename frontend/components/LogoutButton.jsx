@@ -6,7 +6,6 @@ const LogoutButton = ({className}) => {
   const handleClick=async()=>{
     try{
       const response=await axios.post("http://localhost:3000/api/auth/logout",{},{withCredentials:true})
-      console.log(response)
       router.push('/login')
     }catch(err){
       console.log(err)
