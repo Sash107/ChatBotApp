@@ -1,0 +1,27 @@
+version: '3.9'
+
+services:
+  backend-node:
+    build: ./backend-node
+    container_name: ChatBotApp_backend-node
+    ports:
+      - "3000:3000"
+    env_file: ./backend-node/.env
+    depends_on: 
+      - backend-python
+  
+  backend-python:
+    build: ./backend-python
+    container_name: ChatBotApp_backend-python
+    ports:
+      - "8000:8000"
+    env_file: ./backend-python/.env
+
+  frontend:
+    build: ./frontend
+    container_name: ChatBotApp_frontend
+    ports:
+      - "5000:3000"
+    depends_on:
+      - backend-node
+      - backend-python

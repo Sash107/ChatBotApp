@@ -41,7 +41,7 @@ async function sendMessage(req,res){
         const lastmessages=await messageModel.find({conversationId}).sort({createdAt:-1}).limit(9).select("role content -_id");
         lastmessages.reverse();
         
-        const response=await axios.post('http://127.0.0.1:8000/ask_chatBot',{messages:lastmessages});
+        const response=await axios.post('http://backend-python:8000/ask_chatBot',{messages:lastmessages});
 
         await messageModel.create({
             conversationId:conversationId,
